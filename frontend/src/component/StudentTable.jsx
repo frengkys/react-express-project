@@ -79,7 +79,7 @@ class StudentTable extends Component {
                         <td>{product.StudentStatus.status}</td>
                         <td>
                         <Button>
-                        <Glyphicon glyph="pencil" title="Edit"/>
+                        <Glyphicon glyph="pencil" onClick={this.handleShow} title="Edit"/>
                         </Button>
                         <Button>
                         <Glyphicon glyph="trash" title="Delete"/>

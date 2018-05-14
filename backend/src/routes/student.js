@@ -12,4 +12,7 @@ router.route('/:id')
 router.route('/:id')
     .delete(student.remove)
 
+router.route('/student-status')
+    .get(student.getStudentStatus)
+
 export default router

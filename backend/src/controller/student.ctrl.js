@@ -85,9 +85,21 @@ function remove(req, res) {
     });
 }
 
+function getStudentStatus(req, res) {
+    StudentStatus.findAll()
+    .then(status => {
+        return res.json({message: 'success', status})
+    })
+    .catch(err => {
+        return res.json({message: 'error', err})
+    })
+
+}
+
 export default {
     getAll,
     store,
     update,
-    remove
+    remove,
+    getStudentStatus
 }
