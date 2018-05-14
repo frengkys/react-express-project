@@ -43,3 +43,9 @@ $ cd cd react-express/frontend/
 $ npm install
 $ npm run start
 ```
+
+##### for database
+first make new schema, default try_andalin
+```sh
+just run script after database created
+```
