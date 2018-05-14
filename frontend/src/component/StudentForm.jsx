@@ -103,7 +103,7 @@ class StudentForm extends React.Component {
                     <option value="select">select</option>
                     {
                         status && status.map( (s,i) => 
-                        <option value={s.id}>{s.status}</option>
+                        <option key={s.id} value={s.id}>{s.status}</option>
                     )}
                 </FormControl>
                 </Col>
