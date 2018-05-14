@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
+import { bindActionCreators } from 'redux';
 import { FormGroup, ControlLabel, FormControl, HelpBlock, Col, Form, Button, Checkbox } from 'react-bootstrap'
+import { statusStudent } from '../action/statusStudentAction'
 
-export default class StudentForm extends React.Component {
+class StudentForm extends React.Component {
     constructor(props, context) {
       super(props, context);
   
@@ -17,6 +20,10 @@ export default class StudentForm extends React.Component {
         }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount() {
+        this.props.statusStudent();
     }
   
     handleChange(e) {
@@ -38,6 +45,7 @@ export default class StudentForm extends React.Component {
       }
   
     render() {
+    const { error, loading, status } = this.props;
       return (
           <Form horizontal onSubmit={this.handleSubmit}>
           
@@ -93,7 +101,10 @@ export default class StudentForm extends React.Component {
                 <Col sm={10}>
                 <FormControl name="status" componentClass="select" placeholder="select" onChange={this.handleChange} >
                     <option value="select">select</option>
-                    <option value="other">...</option>
+                    {
+                        status && status.map( (s,i) => 
+                        <option value={s.id}>{s.status}</option>
+                    )}
                 </FormControl>
                 </Col>
             </FormGroup>
@@ -106,4 +117,12 @@ export default class StudentForm extends React.Component {
       );
     }
   }
+
+const mapStateToProps = state => ({
+    status: state.status.items,
+    loading: state.status.loading,
+    error: state.status.error,
+});
+
+export default connect(mapStateToProps, { statusStudent })(StudentForm);
   
