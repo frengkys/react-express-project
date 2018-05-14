@@ -1,0 +1,22 @@
+.table > tbody > tr > td {
+    vertical-align: middle;
+}
+
+.table > tbody > tr > td, th {
+    text-align: center;
+}
+ 
+td button {
+    margin: 3px;
+}
+
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+hr {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
