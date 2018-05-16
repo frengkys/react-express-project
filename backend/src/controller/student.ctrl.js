@@ -37,10 +37,10 @@ function store(req, res) {
 
     Student.create( data )
     .then( student => {
-        res.json({message: 'success', student});
+        return res.json({message: 'success', student});
     })
     .catch( error => {
-        res.json({message: 'failed', error});
+        console.log('Err ', error);
     });
 }
 
@@ -61,10 +61,10 @@ function update(req, res) {
       
     Student.update(newData, {where: { id } })  
     .then( student => {
-        res.json({message: 'success', student });
+        return res.json({message: 'success', student });
     })
     .catch( error => {
-        res.json({message: 'failed', error});
+        console.log('Err ', error);
     });
 }
 
@@ -78,10 +78,10 @@ function remove(req, res) {
       where: { id }
     })
     .then(deletedOwner => {
-        res.json({message: 'success', deletedOwner});
+        return res.json({message: 'success', deletedOwner});
     })
     .catch( error => {
-        res.json({message: 'failed', error});
+        console.log('Err ', error);
     });
 }
 
@@ -90,9 +90,9 @@ function getStudentStatus(req, res) {
     .then(status => {
         return res.json({message: 'success', status})
     })
-    .catch(err => {
-        return res.json({message: 'error', err})
-    })
+    .catch( error => {
+        console.log('Err ', error);
+    });
 
 }
 

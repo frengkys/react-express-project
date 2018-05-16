@@ -22,7 +22,7 @@ class StudentForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.statusStudent();
     }
   
@@ -108,9 +108,10 @@ class StudentForm extends React.Component {
                 </FormControl>
                 </Col>
             </FormGroup>
+
             <FormGroup>
             <Col smOffset={10} sm={2}>
-            <Button type="submit" className="btn btn-primary">Submit</Button>
+                <Button type="submit" className="btn btn-primary">Submit</Button>
             </Col>
             </FormGroup>
             </Form>

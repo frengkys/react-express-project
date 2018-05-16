@@ -13,14 +13,34 @@ class StudentTable extends Component {
     
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.submit = this.submit.bind(this);
     
         this.state = {
-          show: false
+            data: {},
+            table: [],
+            show: false,
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         this.props.fetchProducts();
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log('componentWillReceiveProps ', nextProps)
+        console.log('componentWillReceiveProps table ', this.state.table)
+        this.setState({ table : nextProps.products })
+    }
+
+    componentDidMount() {
+        const { products } = this.props
+        products && console.log('componentDidMount ', products)
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        console.log('componentDidUpdate prevProps ',prevProps)
+        console.log('componentDidUpdate prevState ',prevState)
+        console.log('componentDidUpdate snap ',snapshot)
     }
     
     handleClose() {
@@ -31,12 +51,37 @@ class StudentTable extends Component {
         this.setState({ show: true });
     }
 
-    submit = data =>
-        this.props.createStudent(data).then( () => window.location.reload() );
+    handleShowEdit(i){
+        const { products } = this.props
+        products && this.setState({ 
+        data:{
+            student_no: products[i].student_no,
+            name: products[i].name,
+            email: products[i].email,
+            telp: products[i].telp,
+            address: products[i].address,
+            // status: products[i].status,
+            },
+        show:true })
+    }
+
+    // submit = data =>
+    //     this.props.createStudent(data).then( () => window.location.reload() );
     
+    submit(data) {
+        this.props.createStudent(data).then( (res) => {
+            this.handleClose()
+            // res['status']= res.StudentStatus.status
+            let newTable = this.state.table.concat(res)
+            this.setState({ table: newTable })
+            console.log('dor ',this.state.table,'\n',res)
+        } );
+        // this.props.createStudent(data);
+    }
 
     render() {
         const { error, loading, products } = this.props;
+        const { table } = this.state;
         if (error) {
         return <div>Error! {error.message}</div>;
         }
@@ -44,6 +89,9 @@ class StudentTable extends Component {
         if (loading) {
         return <div>Loading...</div>;
         }
+
+        products && console.log('render ',products)
+        console.log('render table ', this.state.table)
         return (
         <div className="show-grid">
             <hr />
@@ -68,21 +116,21 @@ class StudentTable extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                    {products.map( (product,i) =>
+                    {table.map( (student,i) =>
                     <tr key={i}>
                         <td>{i+1}</td>
-                        <td>{product.student_no}</td>
-                        <td>{product.name}</td>
-                        <td>{product.email}</td>
-                        <td>{product.telp}</td>
-                        <td>{product.address}</td>
-                        <td>{product.StudentStatus.status}</td>
+                        <td>{student.student_no}</td>
+                        <td>{student.name}</td>
+                        <td>{student.email}</td>
+                        <td>{student.telp}</td>
+                        <td>{student.address}</td>
+                        <td>dor</td>
                         <td>
                         <Button>
-                        <Glyphicon glyph="pencil" onClick={this.handleShow} title="Edit"/>
+                            <Glyphicon glyph="pencil" onClick={() => this.handleShowEdit(i)} title="Edit"/>
                         </Button>
                         <Button>
-                        <Glyphicon glyph="trash" title="Delete"/>
+                            <Glyphicon glyph="trash" title="Delete"/>
                         </Button>
                         </td>
                     </tr>
