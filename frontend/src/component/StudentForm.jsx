@@ -99,7 +99,7 @@ class StudentForm extends React.Component {
                     Status
                 </Col>
                 <Col sm={10}>
-                <FormControl name="status" componentClass="select" placeholder="select" onChange={this.handleChange} >
+                <FormControl name="status" componentClass="select" placeholder="select" onChange={this.handleChange} value={data ? data.status : null}>
                     <option value="select">select</option>
                     {
                         status && status.map( (s,i) => 

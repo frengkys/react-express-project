@@ -63,7 +63,7 @@ class StudentTable extends Component {
             email: products[i].email,
             telp: products[i].telp,
             address: products[i].address,
-            // status: products[i].status,
+            status: products[i].statusId,
             },
         show:true })
     }
@@ -74,10 +74,11 @@ class StudentTable extends Component {
     submit(data) {
         this.props.createStudent(data).then( (res) => {
             this.handleClose()
-            // res['status']= res.StudentStatus.status
+            // res['StudentStatus']= res.StudentStatus.status
             let newTable = this.state.table.concat(res)
-            this.setState({ table: newTable })
-            console.log('dor ',this.state.table,'\n',res)
+            this.setState({ table: newTable })  
+            console.log('submit dor ',this.state.table)
+            console.log('submit dor ',res)
         } );
         // this.props.createStudent(data);
     }
@@ -127,7 +128,9 @@ class StudentTable extends Component {
                         <td>{student.email}</td>
                         <td>{student.telp}</td>
                         <td>{student.address}</td>
-                        <td>dor</td>
+                        <td>
+                        {/* {student.StudentStatus.status} */}
+                        </td>
                         <td>
                         <Button>
                             <Glyphicon glyph="pencil" onClick={() => this.handleShowEdit(i)} title="Edit"/>
