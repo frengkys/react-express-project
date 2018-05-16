@@ -12,20 +12,12 @@ this project uses a number of open source projects to work properly:
 
 * [ExpressJs] - as rest service for backend
 * [Sequelize] - ORM for handle database
-* [ReactJs] - for frontend view
-* [Redux] - bridge data in react
+* [ReactJs] - building user interface
+* [Redux] - bridge data / handle state in react
 * [React Bootsrap] - css framework
 * [Node Js] - runtime environment
 * [ MariaDB ] - database
 
-And of course Dillinger itself is open source with a [public repository][dill]
- on GitHub.
-
-### Installation
-
-Dillinger requires [Node.js](https://nodejs.org/) v8+ to run.
-
-Install the dependencies and devDependencies and start the server.
 
 ##### for backend
 copy .env.example to .env then configure your database
