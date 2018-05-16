@@ -48,6 +48,9 @@ class StudentTable extends Component {
     }
     
     handleShow() {
+        this.setState({
+            data : null
+        })
         this.setState({ show: true });
     }
 
@@ -145,7 +148,7 @@ class StudentTable extends Component {
                 <Modal.Title>Student Form</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <StudentForm submit={this.submit}/>
+                    <StudentForm data={this.state.data} submit={this.submit}/>
                 </Modal.Body>
                 {/* <Modal.Footer>
                 <Button onClick={this.handleClose}>Close</Button>

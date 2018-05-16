@@ -45,7 +45,7 @@ class StudentForm extends React.Component {
       }
   
     render() {
-    const { error, loading, status } = this.props;
+    const { error, loading, status, data } = this.props;
       return (
           <Form horizontal onSubmit={this.handleSubmit}>
           
@@ -54,7 +54,7 @@ class StudentForm extends React.Component {
                 Student No
                 </Col>
                 <Col sm={10}>
-                <FormControl name="student_no" type="text" placeholder="Student No" onChange={this.handleChange} />
+                <FormControl name="student_no" type="text" placeholder="Student No" onChange={this.handleChange} value={data ? data.student_no : null} />
                 </Col>
             </FormGroup>
           
@@ -63,7 +63,7 @@ class StudentForm extends React.Component {
                 Name
                 </Col>
                 <Col sm={10}>
-                <FormControl name="name" type="text" placeholder="Name" onChange={this.handleChange} />
+                <FormControl name="name" type="text" placeholder="Name" onChange={this.handleChange} value={data ? data.name : null} />
                 </Col>
             </FormGroup>
           
@@ -72,7 +72,7 @@ class StudentForm extends React.Component {
                 Email
                 </Col>
                 <Col sm={10}>
-                <FormControl name="email" type="email" placeholder="Email" onChange={this.handleChange} />
+                <FormControl name="email" type="email" placeholder="Email" onChange={this.handleChange} value={data ? data.email : null}/>
                 </Col>
             </FormGroup>
           
@@ -81,7 +81,7 @@ class StudentForm extends React.Component {
                 Telp
                 </Col>
                 <Col sm={10}>
-                <FormControl name="telp" type="text" placeholder="Telp" onChange={this.handleChange} />
+                <FormControl name="telp" type="text" placeholder="Telp" onChange={this.handleChange}  value={data ? data.telp : null}/>
                 </Col>
             </FormGroup>
           
@@ -90,7 +90,7 @@ class StudentForm extends React.Component {
                 Address
                 </Col>
                 <Col sm={10}>
-                <FormControl name="address" type="text" placeholder="Address" onChange={this.handleChange} />
+                <FormControl name="address" type="text" placeholder="Address" onChange={this.handleChange} value={data ? data.address : null}/>
                 </Col>
             </FormGroup>
           
