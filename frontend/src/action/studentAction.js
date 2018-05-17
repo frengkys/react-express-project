@@ -1,34 +1,34 @@
 import api from '../modules/api'
 
-export const FETCH_PRODUCTS_BEGIN   = 'FETCH_PRODUCTS_BEGIN';
-export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
-export const FETCH_PRODUCTS_FAILURE = 'FETCH_PRODUCTS_FAILURE';
+export const FETCH_STUDENTS_BEGIN   = 'FETCH_STUDENTS_BEGIN';
+export const FETCH_STUDENTS_SUCCESS = 'FETCH_STUDENTS_SUCCESS';
+export const FETCH_STUDENTS_FAILURE = 'FETCH_STUDENTS_FAILURE';
 
-export const fetchProductsBegin = () => ({
-  type: FETCH_PRODUCTS_BEGIN
+export const fetchStudentsBegin = () => ({
+  type: FETCH_STUDENTS_BEGIN
 });
 
-export const fetchProductsSuccess = products => ({
-  type: FETCH_PRODUCTS_SUCCESS,
-  payload: { products }
+export const fetchStudentsSuccess = students => ({
+  type: FETCH_STUDENTS_SUCCESS,
+  payload: { students }
 });
 
-export const fetchProductsFailure = error => ({
-  type: FETCH_PRODUCTS_FAILURE,
+export const fetchStudentsFailure = error => ({
+  type: FETCH_STUDENTS_FAILURE,
   payload: { error }
 });
 
-export function fetchProducts() {
+export function fetchStudents() {
     return dispatch => {
-      dispatch(fetchProductsBegin());
+      dispatch(fetchStudentsBegin());
       return fetch("http://localhost:8888/api/student")
         .then(handleErrors)
         .then(res => res.json())
         .then(json => {
-          dispatch(fetchProductsSuccess(json.student));
+          dispatch(fetchStudentsSuccess(json.student));
           return json.student;
         })
-        .catch(error => dispatch(fetchProductsFailure(error)));
+        .catch(error => dispatch(fetchStudentsFailure(error)));
     };
   }
   

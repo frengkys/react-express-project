@@ -1,7 +1,7 @@
 import {
-    FETCH_PRODUCTS_BEGIN,
-    FETCH_PRODUCTS_SUCCESS,
-    FETCH_PRODUCTS_FAILURE
+    FETCH_STUDENTS_BEGIN,
+    FETCH_STUDENTS_SUCCESS,
+    FETCH_STUDENTS_FAILURE
   } from '../action/studentAction';
   
   const initialState = {
@@ -12,7 +12,7 @@ import {
   
   export default function productReducer(state = initialState, action) {
     switch(action.type) {
-      case FETCH_PRODUCTS_BEGIN:
+      case FETCH_STUDENTS_BEGIN:
         // Mark the state as "loading" so we can show a spinner or something
         // Also, reset any errors. We're starting fresh.
         return {
@@ -21,7 +21,7 @@ import {
           error: null
         };
   
-      case FETCH_PRODUCTS_SUCCESS:
+      case FETCH_STUDENTS_SUCCESS:
         // All done: set loading "false".
         // Also, replace the items with the ones from the server
         return {
@@ -30,7 +30,7 @@ import {
           items: action.payload.products
         };
   
-      case FETCH_PRODUCTS_FAILURE:
+      case FETCH_STUDENTS_FAILURE:
         // The request failed, but it did stop, so set loading to "false".
         // Save the error, and we can display it somewhere
         // Since it failed, we don't have items to display anymore, so set it empty.

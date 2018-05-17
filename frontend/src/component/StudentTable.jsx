@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
-import { fetchProducts } from "../action/studentAction";
+import { fetchStudents } from "../action/studentAction";
 import { createStudent } from "../action/createStudentAction";
 
 import { Grid, Row, Col, Jumbotron, Button, Table, Glyphicon, Modal } from 'react-bootstrap';
@@ -23,18 +23,18 @@ class StudentTable extends Component {
     }
 
     componentWillMount() {
-        this.props.fetchProducts();
+        this.props.fetchStudents();
     }
 
     componentWillReceiveProps(nextProps){
         console.log('componentWillReceiveProps ', nextProps)
         console.log('componentWillReceiveProps table ', this.state.table)
-        this.setState({ table : nextProps.products })
+        this.setState({ table : nextProps.students })
     }
 
     componentDidMount() {
-        const { products } = this.props
-        products && console.log('componentDidMount ', products)
+        const { students } = this.props
+        students && console.log('componentDidMount ', students)
     }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
@@ -55,15 +55,15 @@ class StudentTable extends Component {
     }
 
     handleShowEdit(i){
-        const { products } = this.props
-        products && this.setState({ 
+        const { students } = this.props
+        students && this.setState({ 
         data:{
-            student_no: products[i].student_no,
-            name: products[i].name,
-            email: products[i].email,
-            telp: products[i].telp,
-            address: products[i].address,
-            status: products[i].statusId,
+            student_no: students[i].student_no,
+            name: students[i].name,
+            email: students[i].email,
+            telp: students[i].telp,
+            address: students[i].address,
+            status: students[i].statusId,
             },
         show:true })
     }
@@ -84,7 +84,7 @@ class StudentTable extends Component {
     }
 
     render() {
-        const { error, loading, products } = this.props;
+        const { error, loading, students } = this.props;
         const { table } = this.state;
         if (error) {
         return <div>Error! {error.message}</div>;
@@ -94,7 +94,7 @@ class StudentTable extends Component {
         return <div>Loading...</div>;
         }
 
-        products && console.log('render ',products)
+        students && console.log('render ',students)
         console.log('render table ', this.state.table)
         return (
         <div className="show-grid">
@@ -164,11 +164,9 @@ class StudentTable extends Component {
 }
 
 const mapStateToProps = state => ({
-    products: state.products.items,
-    loading: state.products.loading,
-    error: state.products.error,
-
-    student: state.newstudent.items
+    students: state.students.items,
+    loading: state.students.loading,
+    error: state.students.error,
 });
 
 // const mapDispatchToProps = dispatch => bindActionCreators({
@@ -179,4 +177,4 @@ const mapStateToProps = state => ({
 // function mapDispatchToProps(dispatch) { return { dispatch, someActions: bindActionCreators({ ...someActions }, dispatch) } }
 
 
-export default connect(mapStateToProps, {fetchProducts, createStudent})(StudentTable);
+export default connect(mapStateToProps, {fetchStudents, createStudent})(StudentTable);

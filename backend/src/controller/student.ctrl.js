@@ -18,7 +18,6 @@ function getAll(req, res) {
     .catch(err => {
         return res.json({message: 'error', err})
     })
-
 }
 
 /**
