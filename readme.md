@@ -22,7 +22,7 @@ this project uses a number of open source projects to work properly:
 ##### for backend
 copy .env.example to .env then configure your database
 ```sh
-$ cd cd react-express/backend/
+$ cd react-express/backend/
 $ npm install
 $ npm run dev:mon => development
 $ npm run start => production
@@ -31,7 +31,7 @@ $ npm run start => production
 ##### for frontend
 change directory to frontend first
 ```sh
-$ cd cd react-express/frontend/
+$ cd react-express/frontend/
 $ npm install
 $ npm run start
 ```
