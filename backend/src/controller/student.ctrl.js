@@ -36,7 +36,12 @@ function store(req, res) {
 
     Student.create( data )
     .then( student => {
-        return res.json({message: 'success', student});
+        // console.log( getStudentStatusById( student.statusId ) )
+        getStudentStatusById( student.statusId ).then( status => {
+            student= student.toJSON()
+            student['status']= status
+            return res.json({message: 'success', student});
+        })
     })
     .catch( error => {
         console.log('Err ', error);
@@ -92,7 +97,17 @@ function getStudentStatus(req, res) {
     .catch( error => {
         console.log('Err ', error);
     });
+}
 
+function getStudentStatusById(id) {
+    return new Promise(function(res, rej){
+        return StudentStatus.findById(id).then( ss => {
+            console.log('ss ',ss.status)
+            return res(ss.status)
+        }).catch(err => {
+                throw err
+        })
+    })
 }
 
 export default {
