@@ -57,14 +57,14 @@ class StudentTable extends Component {
     handleShowEdit(i){
         const { students } = this.props
         students && this.setState({ 
-        data:{
+        data: {
             student_no: students[i].student_no,
             name: students[i].name,
             email: students[i].email,
             telp: students[i].telp,
             address: students[i].address,
             status: students[i].statusId,
-            },
+        },
         show:true })
     }
 
@@ -87,11 +87,11 @@ class StudentTable extends Component {
         const { error, loading, students } = this.props;
         const { table } = this.state;
         if (error) {
-        return <div>Error! {error.message}</div>;
+            return <div>Error! {error.message}</div>;
         }
 
         if (loading) {
-        return <div>Loading...</div>;
+            return <div>Loading...</div>;
         }
 
         students && console.log('render ',students)

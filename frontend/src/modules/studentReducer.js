@@ -27,7 +27,7 @@ import {
         return {
           ...state,
           loading: false,
-          items: action.payload.products
+          items: action.payload.students
         };
   
       case FETCH_STUDENTS_FAILURE:
