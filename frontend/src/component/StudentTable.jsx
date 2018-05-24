@@ -16,7 +16,7 @@ class StudentTable extends Component {
         this.submit = this.submit.bind(this);
     
         this.state = {
-            data: {},
+            studentEdit: {},
             table: [],
             show: false,
         };
@@ -49,15 +49,18 @@ class StudentTable extends Component {
     
     handleShow() {
         this.setState({
-            data : null
+            studentEdit : null
         })
         this.setState({ show: true });
     }
 
     handleShowEdit(i){
+        this.setState({
+            studentEdit : null
+        })
         const { students } = this.props
         students && this.setState({ 
-        data: {
+        studentEdit: {
             student_no: students[i].student_no,
             name: students[i].name,
             email: students[i].email,
@@ -120,8 +123,8 @@ class StudentTable extends Component {
                 </tr>
                 </thead>
                 <tbody>
-                    {table.map( (student,i) =>
-                    <tr key={i}>
+                    {table.map( (student, i) =>
+                    <tr key={student.id} data-id={student.id}>
                         <td>{i+1}</td>
                         <td>{student.student_no}</td>
                         <td>{student.name}</td>
@@ -132,8 +135,8 @@ class StudentTable extends Component {
                         {/* {student.StudentStatus.status} */}
                         </td>
                         <td>
-                        <Button>
-                            <Glyphicon glyph="pencil" onClick={() => this.handleShowEdit(i)} title="Edit"/>
+                        <Button onClick={() => this.handleShowEdit(i)}>
+                            <Glyphicon glyph="pencil" title="Edit"/>
                         </Button>
                         <Button>
                             <Glyphicon glyph="trash" title="Delete"/>
@@ -151,7 +154,7 @@ class StudentTable extends Component {
                 <Modal.Title>Student Form</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <StudentForm data={this.state.data} submit={this.submit}/>
+                    <StudentForm data={this.state.studentEdit} submit={this.submit}/>
                 </Modal.Body>
                 {/* <Modal.Footer>
                 <Button onClick={this.handleClose}>Close</Button>

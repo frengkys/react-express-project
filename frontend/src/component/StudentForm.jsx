@@ -9,21 +9,20 @@ class StudentForm extends React.Component {
       super(props, context);
   
       this.state = {
-          data: {
-              student_no: '',
-              name: '',
-              email: '',
-              telp: '',
-              address: '',
-              status: '',
-            },
-        }
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+          data: {},
+      }
+      this.handleChange = this.handleChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     componentWillMount() {
         this.props.statusStudent();
+    }
+
+    componentWillReceiveProps(nextProps){
+        console.log('componentWillReceiveProps Form', nextProps)
+        console.log('componentWillReceiveProps table Form', this.state.data)
+        this.setState({ data : nextProps.data })
     }
   
     handleChange(e) {
@@ -32,7 +31,7 @@ class StudentForm extends React.Component {
             ...this.state.data, [e.target.name]: e.target.value
             }
         });
-        console.log(this.state);
+        // console.log(this.state);
     }
 
     handleSubmit(e) {
@@ -45,7 +44,9 @@ class StudentForm extends React.Component {
       }
   
     render() {
-    const { error, loading, status, data } = this.props;
+    const { error, loading, status } = this.props;
+    const { data } = this.state;
+
       return (
           <Form horizontal onSubmit={this.handleSubmit}>
           
@@ -54,7 +55,7 @@ class StudentForm extends React.Component {
                 Student No
                 </Col>
                 <Col sm={10}>
-                <FormControl name="student_no" type="text" placeholder="Student No" onChange={this.handleChange} value={data ? data.student_no : null} />
+                <FormControl name="student_no" type="text" placeholder="Student No" onChange={this.handleChange} value={data.student_no || ''} />
                 </Col>
             </FormGroup>
           
@@ -63,7 +64,7 @@ class StudentForm extends React.Component {
                 Name
                 </Col>
                 <Col sm={10}>
-                <FormControl name="name" type="text" placeholder="Name" onChange={this.handleChange} value={data ? data.name : null} />
+                <FormControl name="name" type="text" placeholder="Name" onChange={this.handleChange} value={data.name || ''} />
                 </Col>
             </FormGroup>
           
@@ -72,7 +73,7 @@ class StudentForm extends React.Component {
                 Email
                 </Col>
                 <Col sm={10}>
-                <FormControl name="email" type="email" placeholder="Email" onChange={this.handleChange} value={data ? data.email : null}/>
+                <FormControl name="email" type="email" placeholder="Email" onChange={this.handleChange}  value={data.email || ''}/>
                 </Col>
             </FormGroup>
           
@@ -81,7 +82,7 @@ class StudentForm extends React.Component {
                 Telp
                 </Col>
                 <Col sm={10}>
-                <FormControl name="telp" type="text" placeholder="Telp" onChange={this.handleChange}  value={data ? data.telp : null}/>
+                <FormControl name="telp" type="text" placeholder="Telp" onChange={this.handleChange}  value={data.telp || ''}/>
                 </Col>
             </FormGroup>
           
@@ -90,7 +91,7 @@ class StudentForm extends React.Component {
                 Address
                 </Col>
                 <Col sm={10}>
-                <FormControl name="address" type="text" placeholder="Address" onChange={this.handleChange} value={data ? data.address : null}/>
+                <FormControl name="address" type="text" placeholder="Address" onChange={this.handleChange}  value={data.address || ''} />
                 </Col>
             </FormGroup>
           
@@ -99,7 +100,7 @@ class StudentForm extends React.Component {
                     Status
                 </Col>
                 <Col sm={10}>
-                <FormControl name="status" componentClass="select" placeholder="select" onChange={this.handleChange} value={data ? data.status : null}>
+                <FormControl name="status" componentClass="select" placeholder="select" onChange={this.handleChange}  value={data.status || ''}>
                     <option value="select">select</option>
                     {
                         status && status.map( (s,i) => 
