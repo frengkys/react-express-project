@@ -18,22 +18,21 @@ export const deleteStudentFailure = error => ({
   payload: { error }
 });
 
-export function deleteStudent(data) {
-    console.log('post ',JSON.stringify(data))
+export function deleteStudent(id) {
+    console.log('post ',JSON.stringify(id))
     return dispatch => {
       dispatch(deleteStudentBegin());
-      return fetch("http://localhost:8888/api/student", {
+      return fetch("http://localhost:8888/api/student/"+id, {
         headers: {
           'Content-type': 'application/json'
         },
-        method: 'DELETE',
-        body: JSON.stringify(data)
+        method: 'DELETE'
       })
         .then(handleErrors)
         .then(res => res.json())
         .then(json => {
-          dispatch(deleteStudentSuccess(json.student));
-          return json.student;
+          dispatch(deleteStudentSuccess(json.message));
+          return json.message;
         })
         .catch(error => dispatch(deleteStudentFailure(error)));
     };

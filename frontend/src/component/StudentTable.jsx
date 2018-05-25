@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { fetchStudents } from "../action/studentAction";
 import { createStudent } from "../action/createStudentAction";
 import { updateStudent } from "../action/updateStudentAction";
+import { deleteStudent } from "../action/deleteStudentAction";
 
 import { Grid, Row, Col, Jumbotron, Button, Table, Glyphicon, Modal } from 'react-bootstrap';
 import StudentForm from './StudentForm';
@@ -51,14 +52,20 @@ class StudentTable extends Component {
         this.setState({ show: false });
     }
 
-    handleDelete() {
+    handleDelete(i, id) {
         confirmAlert({
             title: 'Delete Student.',
             message: 'Are you sure to do this ?',
             buttons: [
               {
                 label: 'Yes',
-                onClick: () => console.log('dor')
+                onClick: () => {
+                    let filteredArray = this.state.table.filter( (item, key) => key !== i)
+                    this.setState({table: filteredArray});
+                    this.props.deleteStudent(id).then( res => {
+                        console.log('deleted ',res)
+                    })
+                }
               },
               {
                 label: 'No',
@@ -171,7 +178,7 @@ class StudentTable extends Component {
                         <Button onClick={() => this.handleShowEdit(i)}>
                             <Glyphicon glyph="pencil" title="Edit"/>
                         </Button>
-                        <Button onClick={() => this.handleDelete(i)}>
+                        <Button onClick={() => this.handleDelete(i, student.id)}>
                             <Glyphicon glyph="trash" title="Delete" />
                         </Button>
                         </td>
@@ -217,4 +224,4 @@ const mapStateToProps = state => ({
 // function mapDispatchToProps(dispatch) { return { dispatch, someActions: bindActionCreators({ ...someActions }, dispatch) } }
 
 
-export default connect(mapStateToProps, {fetchStudents, createStudent, updateStudent})(StudentTable);
+export default connect(mapStateToProps, {fetchStudents, createStudent, updateStudent, deleteStudent})(StudentTable);

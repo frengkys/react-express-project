@@ -5,6 +5,7 @@ import students from './studentReducer'
 import newstudent from './createStudent'
 import status from './statusStudent'
 import updateStudent from './updateStudent'
+import deleteStudent from './deleteStudent'
 
 export default combineReducers({
   routing: routerReducer,
@@ -13,4 +14,5 @@ export default combineReducers({
   newstudent,
   status,
   updateStudent,
+  deleteStudent,
 })

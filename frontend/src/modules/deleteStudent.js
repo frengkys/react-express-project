@@ -2,7 +2,7 @@ import {
     DELETE_STUDENT_BEGIN,
     DELETE_STUDENT_SUCCESS,
     DELETE_STUDENT_FAILURE
-  } from '../action/createStudentAction';
+  } from '../action/deleteStudentAction';
   
   const initialState = {
     items: [],
