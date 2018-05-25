@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { fetchStudents } from "../action/studentAction";
 import { createStudent } from "../action/createStudentAction";
+import { updateStudent } from "../action/updateStudentAction";
 
 import { Grid, Row, Col, Jumbotron, Button, Table, Glyphicon, Modal } from 'react-bootstrap';
 import StudentForm from './StudentForm';
@@ -61,6 +62,8 @@ class StudentTable extends Component {
         const { students } = this.props
         students && this.setState({ 
         studentEdit: {
+            i,
+            id: students[i].id,
             student_no: students[i].student_no,
             name: students[i].name,
             email: students[i].email,
@@ -68,21 +71,32 @@ class StudentTable extends Component {
             address: students[i].address,
             status: students[i].statusId,
         },
-        show:true })
+        show: true })
     }
 
     // submit = data =>
     //     this.props.createStudent(data).then( () => window.location.reload() );
     
     submit(data) {
+        this.handleClose()
+        console.log('data submit',data)
+        data.id ? 
+        this.props.updateStudent(data).then( res => {
+            console.log('updated ',res)
+            console.log(this.state.table); // initial value
+            
+            const items= this.state.table
+            const item = Object.assign({}, this.state.table[this.state.studentEdit.i], res )
+            items[this.state.studentEdit.i] = item
+            this.setState({table: items})
+        }) :
         this.props.createStudent(data).then( (res) => {
-            this.handleClose()
             // res['StudentStatus']= res.StudentStatus.status
             let newTable = this.state.table.concat(res)
             this.setState({ table: newTable })  
             console.log('submit dor ',this.state.table)
             console.log('submit dor ',res)
-        } );
+        });
         // this.props.createStudent(data);
     }
 
@@ -124,7 +138,7 @@ class StudentTable extends Component {
                 </thead>
                 <tbody>
                     {table.map( (student, i) =>
-                    <tr key={student.id} data-id={student.id}>
+                    <tr key={student.id}>
                         <td>{i+1}</td>
                         <td>{student.student_no}</td>
                         <td>{student.name}</td>
@@ -170,6 +184,10 @@ const mapStateToProps = state => ({
     students: state.students.items,
     loading: state.students.loading,
     error: state.students.error,
+
+    studentEdit: state.updateStudent.items,
+    studentEditLoading: state.updateStudent.loading,
+    studentEditError: state.updateStudent.error,
 });
 
 // const mapDispatchToProps = dispatch => bindActionCreators({
@@ -180,4 +198,4 @@ const mapStateToProps = state => ({
 // function mapDispatchToProps(dispatch) { return { dispatch, someActions: bindActionCreators({ ...someActions }, dispatch) } }
 
 
-export default connect(mapStateToProps, {fetchStudents, createStudent})(StudentTable);
+export default connect(mapStateToProps, {fetchStudents, createStudent, updateStudent})(StudentTable);

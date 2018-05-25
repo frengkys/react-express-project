@@ -62,10 +62,10 @@ function update(req, res) {
         address : req.fields.address,
         statusId : req.fields.statusId,
     };
-      
+    newData['id']= id
     Student.update(newData, {where: { id } })  
     .then( student => {
-        return res.json({message: 'success', student });
+        return res.json({message: 'success', newData });
     })
     .catch( error => {
         console.log('Err ', error);

@@ -22,7 +22,7 @@ export function updateStudent(data) {
     console.log('post ',JSON.stringify(data))
     return dispatch => {
       dispatch(updateStudentBegin());
-      return fetch("http://localhost:8888/api/student", {
+      return fetch("http://localhost:8888/api/student/"+data.id, {
         headers: {
           'Content-type': 'application/json'
         },
@@ -32,8 +32,8 @@ export function updateStudent(data) {
         .then(handleErrors)
         .then(res => res.json())
         .then(json => {
-          dispatch(updateStudentSuccess(json.student));
-          return json.student;
+          dispatch(updateStudentSuccess(json.newData));
+          return json.newData;
         })
         .catch(error => dispatch(updateStudentFailure(error)));
     };

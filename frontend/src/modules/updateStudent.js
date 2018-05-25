@@ -2,7 +2,7 @@ import {
     UPDATE_STUDENT_BEGIN,
     UPDATE_STUDENT_SUCCESS,
     UPDATE_STUDENT_FAILURE
-  } from '../action/createStudentAction';
+  } from '../action/updateStudentAction';
   
   const initialState = {
     items: [],
