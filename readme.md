@@ -1,6 +1,6 @@
 # React Expres (CRUD APP)
 
-in this github repo, there is three folder
+in this github repo, there are three folder
 
   - frontend
   - backend
