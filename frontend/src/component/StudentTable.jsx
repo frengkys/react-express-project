@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import { confirmAlert } from 'react-confirm-alert'; // Import
+import 'react-confirm-alert/src/react-confirm-alert.css' // Import css
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import { fetchStudents } from "../action/studentAction";
@@ -10,11 +12,12 @@ import StudentForm from './StudentForm';
 
 class StudentTable extends Component {
     constructor(props, context) {
-        super(props, context);
+        super(props, context)
     
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
         this.submit = this.submit.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
     
         this.state = {
             studentEdit: {},
@@ -46,6 +49,22 @@ class StudentTable extends Component {
     
     handleClose() {
         this.setState({ show: false });
+    }
+
+    handleDelete() {
+        confirmAlert({
+            title: 'Delete Student.',
+            message: 'Are you sure to do this ?',
+            buttons: [
+              {
+                label: 'Yes',
+                onClick: () => console.log('dor')
+              },
+              {
+                label: 'No',
+              }
+            ]
+        })
     }
     
     handleShow() {
@@ -83,7 +102,7 @@ class StudentTable extends Component {
         data.id ? 
         this.props.updateStudent(data).then( res => {
             console.log('updated ',res)
-            console.log(this.state.table); // initial value
+            console.log(this.state.table) // initial value
             
             const items= this.state.table
             const item = Object.assign({}, this.state.table[this.state.studentEdit.i], res )
@@ -152,8 +171,8 @@ class StudentTable extends Component {
                         <Button onClick={() => this.handleShowEdit(i)}>
                             <Glyphicon glyph="pencil" title="Edit"/>
                         </Button>
-                        <Button>
-                            <Glyphicon glyph="trash" title="Delete"/>
+                        <Button onClick={() => this.handleDelete(i)}>
+                            <Glyphicon glyph="trash" title="Delete" />
                         </Button>
                         </td>
                     </tr>
